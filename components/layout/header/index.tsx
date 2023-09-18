@@ -1,4 +1,4 @@
-import Logo from "@/components/icons/logo";
+import EcommerceLogo from "@/components/icons/ecommerce";
 import Link from "next/link";
 
 export default async function Footer() {
@@ -6,7 +6,7 @@ export default async function Footer() {
     <div className="">
       <div className=" container px-10 py-10 mx-auto flex items-end justify-between">
         <Link href={`/`}>
-          <Logo />
+          <EcommerceLogo />
         </Link>
         <div className=" inline-flex gap-4">
           <Link className=" hover:font-bold" href={`/purchase`}>
