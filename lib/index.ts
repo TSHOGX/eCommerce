@@ -1,14 +1,17 @@
 import { Cart, CartItem, Product } from "./types";
 
+const ENDPOINT = "http://localhost:3000/api";
+
 export async function getCart(): Promise<Cart | never> {
-  // Get existing cart from endpoint
   try {
-    const res = await fetch(
-      "https://my-json-server.typicode.com/TSHOGX/MyJSONServer/cart",
-      { cache: "no-store" }
-    );
-    const cart: Cart = await res.json();
-    return cart;
+    const res = await fetch(ENDPOINT + "/cart", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+    return await res.json();
   } catch (error) {
     console.log("error", error);
     throw {
@@ -22,33 +25,16 @@ export function addToCart(productID: string, quantity: number) {
 }
 
 export async function updateItemQuantity(item: CartItem, quantity: number) {
-  // update existing cart item's quantity
-
-  // fetch current cart
-  const cart: Cart = await getCart();
-  if (!cart) return;
-
-  // find target item
-  const cartItem = cart.find((x: CartItem) => x.id === item.id) as CartItem;
-  if (!cartItem) {
-    console.error("Product not found in the cart");
-    return;
-  }
-
-  // update quantity with PUT
-  cartItem.quantity = quantity;
-  const endpoint =
-    "https://my-json-server.typicode.com/TSHOGX/MyJSONServer/cart/" +
-    cartItem.id;
   try {
-    const res = await fetch(endpoint, {
+    item.quantity = quantity;
+    const res = await fetch(ENDPOINT + "/cart", {
       method: "PUT",
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(cartItem),
+      body: JSON.stringify(item),
     });
-    console.log("Quantity updated", await res.json());
+    return await res.json();
   } catch (error) {
     console.log("error", error);
     throw {

@@ -1,8 +1,9 @@
 import ChangeQuantityButton from "@/components/cart/change-quantity-button";
 import { getCart } from "../../lib";
+import { Cart } from "@/lib/types";
 
 export default async function Purchase() {
-  const cart = await getCart();
+  const cart: Cart = await getCart();
   if (!cart.length) return null;
 
   return (
