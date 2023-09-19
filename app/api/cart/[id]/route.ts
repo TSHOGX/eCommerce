@@ -7,9 +7,7 @@ import {
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 import { NextResponse } from "next/server";
 
-const client = new DynamoDBClient({
-  region: process.env.REGION,
-});
+const client = new DynamoDBClient({});
 
 const CART_TABLE_NAME = "CartItem";
 

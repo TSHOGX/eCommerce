@@ -1,6 +1,7 @@
 import { Cart, CartItem, Product } from "./types";
 
-const ENDPOINT = "http://localhost:3000/api";
+// const ENDPOINT = "http://localhost:3000/api";
+const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app/api";
 
 export async function getCart(): Promise<Cart | never> {
   try {
