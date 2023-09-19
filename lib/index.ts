@@ -1,11 +1,11 @@
 import { Cart, CartItem, Product } from "./types";
 
-// const ENDPOINT = "http://localhost:3000/api";
-const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app/api";
+// const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 
 export async function getCart(): Promise<Cart | never> {
   try {
-    const res = await fetch(ENDPOINT + "/cart", {
+    const res = await fetch(`${ENDPOINT}/api/cart`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export function addToCart(productID: string, quantity: number) {
 export async function updateItemQuantity(item: CartItem, quantity: number) {
   try {
     item.quantity = quantity;
-    const res = await fetch(ENDPOINT + "/cart", {
+    const res = await fetch(`${ENDPOINT}/api/cart`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
