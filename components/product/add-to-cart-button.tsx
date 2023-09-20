@@ -1,3 +1,5 @@
+"use client";
+
 import { addToCart } from "@/lib";
 
 export default async function AddToCartButton({
@@ -14,7 +16,7 @@ export default async function AddToCartButton({
         await addToCart(productID, productTitle);
       }}
     >
-      Add This
+      Add To Cart
     </button>
   );
 }

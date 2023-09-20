@@ -3,6 +3,30 @@ import { Cart, CartItem, Product } from "./types";
 // const ENDPOINT = "http://localhost:3000";
 const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 
+export async function getProductInfo(productID: string) {
+  try {
+    const response = await fetch(`${ENDPOINT}/api/product/${productID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.errors) {
+      throw data.errors[0];
+    }
+
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    throw {
+      error: error,
+    };
+  }
+}
+
 export async function addToCart(productID: string, productTitle: string) {
   try {
     const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
