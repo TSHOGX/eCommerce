@@ -6,8 +6,10 @@ export type CartItem = {
   quantity: number;
 };
 
+export type Products = Product[];
+
 export type Product = {
-  id: string;
+  id: string; // equal to CartItem.id
   title: string;
   description: string;
   price: number;
