@@ -41,7 +41,7 @@ export async function DELETE(request: Request, context: { params: any }) {
         },
       })
     );
-    return NextResponse.json({ message: "OK", response }, { status: 200 });
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { updateItemQuantity } from "@/lib";
+import { deleteFromCart, updateItemQuantity } from "@/lib";
 import { CartItem } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
@@ -19,10 +19,13 @@ export default async function ChangeQuantityButton({
         if (type === "plus") {
           await updateItemQuantity(item, item.quantity + 1);
         } else {
-          // TODO: if the quantity == 0, delete this item from the cart
-          await updateItemQuantity(item, item.quantity - 1);
+          if (item.quantity - 1 == 0) {
+            await deleteFromCart(item.id);
+          } else {
+            await updateItemQuantity(item, item.quantity - 1);
+          }
+          router.refresh();
         }
-        router.refresh();
       }}
     >
       {type}

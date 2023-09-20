@@ -67,6 +67,25 @@ export async function addToCart(productID: string, productTitle: string) {
   }
 }
 
+export async function deleteFromCart(productID: string) {
+  try {
+    const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
+      method: "DELETE",
+    });
+
+    const res = await response.json();
+
+    if (res.errors) {
+      throw res.errors[0];
+    }
+  } catch (error) {
+    console.log("error", error);
+    throw {
+      error: error,
+    };
+  }
+}
+
 export async function updateItemQuantity(item: CartItem, quantity: number) {
   try {
     item.quantity = quantity;
