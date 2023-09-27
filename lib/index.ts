@@ -1,9 +1,9 @@
 import { Cart, CartItem, Product } from "./types";
 
-// const ENDPOINT = "http://localhost:3000";
-const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
+const ENDPOINT = "http://localhost:3000";
+// const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 
-export async function getProductInfo(productID: string) {
+export async function getProductInfo(productID: string): Promise<any> {
   try {
     const response = await fetch(`${ENDPOINT}/api/product/${productID}`, {
       method: "GET",
@@ -27,13 +27,17 @@ export async function getProductInfo(productID: string) {
   }
 }
 
-export async function addToCart(productID: string, productTitle: string) {
+export async function addToCart(
+  productID: string,
+  productTitle: string
+): Promise<any> {
   try {
     const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
     });
 
     const data = await response.json();
@@ -52,8 +56,8 @@ export async function addToCart(productID: string, productTitle: string) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(item),
+        cache: "no-store",
       });
-      // error message
     } else {
       // add one to the cart
       const item: CartItem = data;
@@ -67,10 +71,39 @@ export async function addToCart(productID: string, productTitle: string) {
   }
 }
 
-export async function deleteFromCart(productID: string) {
+export async function deleteFromCart(productID: string): Promise<any> {
   try {
     const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
       method: "DELETE",
+      cache: "no-store",
+    });
+
+    const res = await response.json();
+    if (res.errors) {
+      throw res.errors[0];
+    }
+  } catch (error) {
+    console.log("error", error);
+    throw {
+      error: error,
+    };
+  }
+}
+
+export async function updateItemQuantity(
+  item: CartItem,
+  quantity: number
+): Promise<any> {
+  try {
+    item.quantity = quantity;
+
+    const response = await fetch(`${ENDPOINT}/api/cart`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+      cache: "no-store",
     });
 
     const res = await response.json();
@@ -86,29 +119,27 @@ export async function deleteFromCart(productID: string) {
   }
 }
 
-export async function updateItemQuantity(item: CartItem, quantity: number) {
+export async function getCart(): Promise<Cart | undefined> {
   try {
-    item.quantity = quantity;
-
     const response = await fetch(`${ENDPOINT}/api/cart`, {
-      method: "PUT",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(item),
+      cache: "no-store",
     });
 
     const res = await response.json();
 
     if (res.errors) {
-      throw res.errors[0];
+      return undefined;
     }
 
-    return res;
+    const cartSorted: Cart = [...res].sort((a, b) => a.id - b.id);
+    const cart: Cart = cartSorted.filter((cartItem) => Number(cartItem.id) > 0);
+
+    return cart;
   } catch (error) {
-    console.log("error", error);
-    throw {
-      error: error,
-    };
+    return undefined;
   }
 }

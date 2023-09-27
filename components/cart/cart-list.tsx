@@ -1,21 +1,11 @@
-"use client";
-
-import useSWR from "swr";
-import { Cart } from "@/lib/types";
 import ChangeQuantityButton from "./change-quantity-button";
+import { getCart } from "@/lib";
 
-export default function CartList() {
-  const fetcher = (url: RequestInfo | URL) =>
-    fetch(url).then((res) => res.json());
-  const { data, error } = useSWR("/api/cart", fetcher);
-
-  if (error) return "An error has occurred.";
-  if (!data) return "Loading...";
-
-  const cart: Cart = data;
+export default async function CartList() {
+  let cart = await getCart();
   return (
     <ul className=" flex flex-col gap-2">
-      {cart.map((cartItem) => (
+      {cart?.map((cartItem) => (
         <li key={cartItem.id}>
           <div className=" flex flex-row gap-2 items-center">
             <div className=" text-black">{cartItem.productTitle}: </div>
