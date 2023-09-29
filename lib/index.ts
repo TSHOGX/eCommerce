@@ -2,6 +2,8 @@ import { Cart, CartItem, Product } from "./types";
 
 // const ENDPOINT = "http://localhost:3000";
 const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
+// const ENDPOINT = process.env.ENDPOINT;
+// console.log(process.env.ENDPOINT);
 
 export async function getProductInfo(productID: string): Promise<any> {
   try {
