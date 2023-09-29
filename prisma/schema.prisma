@@ -13,8 +13,8 @@ datasource db {
 model Cart {
   id     String     @id @default(cuid())
   items  CartItem[]
-  User   User       @relation(fields: [userId], references: [id])
-  userId String
+  User   User?      @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model CartItem {
@@ -63,7 +63,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Cart          Cart[]
-  cartId        String
+  cartId        String?
 }
 
 model VerificationToken {

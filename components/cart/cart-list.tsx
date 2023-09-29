@@ -1,5 +1,7 @@
 import ChangeQuantityButton from "./change-quantity-button";
 import { getCart } from "@/lib";
+// import Link from "next/link";
+import CheckoutButton from "../checkout/checkout-button";
 
 export default async function CartList() {
   let cart = await getCart();
@@ -18,7 +20,7 @@ export default async function CartList() {
         </li>
       ))}
 
-      <button className=" hover:bg-slate-400 mr-4">Pay</button>
+      <CheckoutButton />
     </ul>
   );
 }
