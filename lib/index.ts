@@ -1,13 +1,40 @@
-import { Cart, CartItem, Product } from "./types";
+import prisma from "./db";
+import { Cart, CartItem, Product, Products } from "./types";
 
 // const ENDPOINT = "http://localhost:3000";
 const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 // const ENDPOINT = process.env.ENDPOINT;
 // console.log(process.env.ENDPOINT);
+const DynamoDBENDPOINT =
+  "https://3w50jb0ire.execute-api.us-east-2.amazonaws.com";
 
-export async function getProductInfo(productID: string): Promise<any> {
+export async function getProductInfo(productID: string): Promise<Product> {
   try {
-    const response = await fetch(`${ENDPOINT}/api/product/${productID}`, {
+    const response = await fetch(`${DynamoDBENDPOINT}/items/${productID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.errors) {
+      throw data.errors[0];
+    }
+
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    throw {
+      error: error,
+    };
+  }
+}
+
+export async function getAllProducts(): Promise<Products> {
+  try {
+    const response = await fetch(`${DynamoDBENDPOINT}/items`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +165,9 @@ export async function getCart(): Promise<Cart | undefined> {
     }
 
     const cartSorted: Cart = [...res].sort((a, b) => a.id - b.id);
-    const cart: Cart = cartSorted.filter((cartItem) => Number(cartItem.id) > 0);
+    const cart: Cart = cartSorted.filter(
+      (cartItem) => Number(cartItem.quantity) > 0
+    );
 
     return cart;
   } catch (error) {

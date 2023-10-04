@@ -1,29 +1,20 @@
-"use client";
-
-import useSWR from "swr";
 import { Products } from "@/lib/types";
 import AddToCartButton from "./add-to-cart-button";
 import Link from "next/link";
+import { getAllProducts } from "@/lib";
 
-export default function ProductGallary() {
-  const fetcher = (url: RequestInfo | URL) =>
-    fetch(url).then((res) => res.json());
-  const { data, error } = useSWR("/api/product", fetcher);
-
-  if (error) return "An error has occurred.";
-  if (!data) return "Loading...";
-
-  const products: Products = data;
+export default async function ProductGallary() {
+  const products: Products = await getAllProducts();
   return (
     <ul className=" flex flex-col gap-2">
       {products.map((product) => (
         <li key={product.id}>
           <div className=" flex flex-row gap-2 items-center">
-            <div className=" text-black">{product.title}:</div>
-            <div className=" text-black">Price: {product.price.toString()}</div>
+            <div className=" text-black">{product.name}:</div>
+            <div className=" text-black">Price: {product.price}</div>
             <AddToCartButton
               productID={product.id}
-              productTitle={product.title}
+              productTitle={product.name}
             />
             <Link
               className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-full text-sm px-4 py-2"

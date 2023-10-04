@@ -10,8 +10,12 @@ export type Products = Product[];
 
 export type Product = {
   id: string; // equal to CartItem.id
-  title: string;
+  name: string;
+  subtitle: string;
   description: string;
-  price: number;
-  inventoryQuantity: number;
+  price: string;
+  size: string[];
+  images: string[];
+  url: string;
+  inventoryQuantity: string;
 };

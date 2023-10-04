@@ -2,7 +2,7 @@ import LocationIcon from "@/components/icons/location";
 
 export default async function Footer() {
   return (
-    <div className=" absolute bottom-0 w-full bg-black">
+    <div className=" fixed bottom-0 w-full bg-black">
       <div className=" container px-10 py-10 mx-auto flex items-center justify-between">
         <div className=" inline-flex">
           <LocationIcon />
