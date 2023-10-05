@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ReactNode, Suspense } from "react";
-import Footer from "@/components/layout/footer";
-import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer/Footer";
+import Header from "@/components/layout/Navbar/Navbar";
 import Provider from "@/components/auth/provider";
 
 export const metadata: Metadata = {
