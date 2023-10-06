@@ -1,6 +1,6 @@
 import { Products } from "@/lib/types";
 import { getAllProducts } from "@/lib";
-import ProductCard from "./ProductCard/product-card";
+import ProductCard from "./product-card/product-card";
 
 export default async function ProductGallery() {
   const products: Products = await getAllProducts();
@@ -10,9 +10,7 @@ export default async function ProductGallery() {
       {products.map((product) => (
         < ProductCard product = {product} />
       ))}
-
-      {/* < ProductCard product = {products[0]} /> */}
-    
+      
     </div>
   );
 }
