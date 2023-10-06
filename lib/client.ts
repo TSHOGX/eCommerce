@@ -1,5 +1,5 @@
-const ENDPOINT = "http://localhost:3000";
-// const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
+// const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 
 // CartItem - Prisma client request
 export async function createCartItem(productID: string, userEmail: string) {
