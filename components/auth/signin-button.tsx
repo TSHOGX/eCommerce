@@ -14,7 +14,7 @@ export default function SigninButton() {
       <button onClick={() => setOpen(!open)}>
         <img
           className=" rounded-full w-6 h-6"
-          src={session.user.image ?? "./user_icon.png"}
+          src={session.user.image ?? "./white_user_icon.png"}
           alt="user_icon"
         />
       </button>
@@ -53,7 +53,7 @@ export default function SigninButton() {
       <button onClick={() => setOpen(!open)}>
         <img
           className=" rounded-full w-6 h-6"
-          src="./user_icon.png"
+          src="./white_user_icon.png"
           alt="user_icon"
         />
       </button>
