@@ -13,8 +13,8 @@ datasource db {
 model Cart {
   id     String     @id @default(cuid())
   items  CartItem[]
-  User   User?      @relation(fields: [userId], references: [id])
-  userId String?
+  // User   User?      @relation(fields: [userId], references: [id], onUpdate: Cascade)
+  userId String?    @unique // email
 }
 
 model CartItem {
@@ -22,7 +22,7 @@ model CartItem {
   productId    String
   productTitle String
   quantity     Int
-  Cart         Cart   @relation(fields: [cartId], references: [id])
+  Cart         Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId       String
 }
 
@@ -62,7 +62,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Cart          Cart[]
+  // Cart          Cart[]
   cartId        String?
 }
 

@@ -1,13 +1,15 @@
-import prisma from "./db";
-import { Cart, CartItem, Product, Products } from "./types";
+"use server";
 
-// const ENDPOINT = "http://localhost:3000";
-const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
-// const ENDPOINT = process.env.ENDPOINT;
-// console.log(process.env.ENDPOINT);
+import { Cart, CartItem, Prisma } from "@prisma/client";
+import prisma from "./db";
+import { Product, Products } from "./types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+
 const DynamoDBENDPOINT =
   "https://3w50jb0ire.execute-api.us-east-2.amazonaws.com";
 
+// Product - DynamoDB
 export async function getProductInfo(productID: string): Promise<Product> {
   try {
     const response = await fetch(`${DynamoDBENDPOINT}/items/${productID}`, {
@@ -32,6 +34,7 @@ export async function getProductInfo(productID: string): Promise<Product> {
   }
 }
 
+// Product - DynamoDB
 export async function getAllProducts(): Promise<Products> {
   try {
     const response = await fetch(`${DynamoDBENDPOINT}/items`, {
@@ -56,121 +59,126 @@ export async function getAllProducts(): Promise<Products> {
   }
 }
 
-export async function addToCart(
-  productID: string,
-  productTitle: string
-): Promise<any> {
+export async function testPrisma() {
+  console.log("testPrisma ");
+  console.log("testPrisma cart", await prisma.cart.findMany());
+  console.log("testPrisma user", await prisma.user.findMany());
+}
+
+// Cart - Prisma server side
+export async function checkAndGetCart(email: string): Promise<Cart> {
   try {
-    const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    console.log("checkAndGetCart");
+
+    const cartDB = await prisma.cart.findUnique({
+      where: {
+        userId: email,
       },
-      cache: "no-store",
     });
 
-    const data = await response.json();
-
-    if (data.message) {
-      // create a new cartItem
-      const item = {
-        quantity: 1,
-        id: productID,
-        productTitle: productTitle,
+    if (!cartDB) {
+      throw {
+        error: "get cart failed",
       };
-      console.log(JSON.stringify(item));
-      await fetch(`${ENDPOINT}/api/cart`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(item),
-        cache: "no-store",
-      });
-    } else {
-      // add one to the cart
-      const item: CartItem = data;
-      await updateItemQuantity(item, item.quantity + 1);
     }
+
+    if (!cartDB.userId) {
+      throw {
+        error: "why no user id??",
+      };
+    }
+
+    return cartDB;
   } catch (error) {
-    console.log("error", error);
-    throw {
-      error: error,
-    };
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        console.log("There is a unique constraint violation");
+      }
+    }
+    throw error;
   }
 }
 
-export async function deleteFromCart(productID: string): Promise<any> {
+// Cart - Prisma server side
+export async function createCart(email: string): Promise<Cart> {
   try {
-    const response = await fetch(`${ENDPOINT}/api/cart/${productID}`, {
-      method: "DELETE",
-      cache: "no-store",
+    console.log("createCart");
+
+    const cartDB = await prisma.cart.create({
+      data: { userId: email },
     });
 
-    const res = await response.json();
-    if (res.errors) {
-      throw res.errors[0];
+    if (!cartDB.userId) {
+      throw {
+        error: "why no user id??",
+      };
     }
+
+    return cartDB;
   } catch (error) {
-    console.log("error", error);
-    throw {
-      error: error,
-    };
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        console.log("There is a unique constraint violation");
+      }
+    }
+    throw error;
   }
 }
 
-export async function updateItemQuantity(
-  item: CartItem,
+// CartItem - Prisma server side
+export async function getItemsInCart(): Promise<CartItem[]> {
+  try {
+    console.log("getItemsInCart");
+
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      throw { error: "User not login. API is be protected." };
+    }
+
+    if (!session.user?.email) {
+      throw { error: "User has no email address??" };
+    }
+
+    const all = await prisma.cart.findMany({
+      where: {
+        userId: session.user.email,
+      },
+      include: {
+        items: true,
+      },
+    });
+
+    const items: CartItem[] = all[0].items;
+
+    console.log(items);
+
+    return items;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// CartItem - Prisma server side
+export async function updateCartItem(
+  productId: string,
   quantity: number
-): Promise<any> {
+): Promise<CartItem> {
   try {
-    item.quantity = quantity;
+    console.log("updateCartItem");
 
-    const response = await fetch(`${ENDPOINT}/api/cart`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item),
-      cache: "no-store",
+    const cartItemDB = await prisma.cartItem.update({
+      where: { id: productId },
+      data: { quantity: quantity },
     });
 
-    const res = await response.json();
-
-    if (res.errors) {
-      throw res.errors[0];
-    }
+    return cartItemDB;
   } catch (error) {
-    console.log("error", error);
-    throw {
-      error: error,
-    };
-  }
-}
-
-export async function getCart(): Promise<Cart | undefined> {
-  try {
-    const response = await fetch(`${ENDPOINT}/api/cart`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
-
-    const res = await response.json();
-
-    if (res.errors) {
-      return undefined;
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        console.log("There is a unique constraint violation");
+      }
     }
-
-    const cartSorted: Cart = [...res].sort((a, b) => a.id - b.id);
-    const cart: Cart = cartSorted.filter(
-      (cartItem) => Number(cartItem.quantity) > 0
-    );
-
-    return cart;
-  } catch (error) {
-    return undefined;
+    throw error;
   }
 }
