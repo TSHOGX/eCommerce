@@ -13,8 +13,8 @@ datasource db {
 model Cart {
   id     String     @id @default(cuid())
   items  CartItem[]
-  User   User?      @relation(fields: [userId], references: [id])
-  userId String?
+  // User   User?      @relation(fields: [userId], references: [id], onUpdate: Cascade)
+  userId String?    @unique // user.email
 }
 
 model CartItem {
@@ -22,8 +22,8 @@ model CartItem {
   productId    String
   productTitle String
   quantity     Int
-  Cart         Cart   @relation(fields: [cartId], references: [id])
-  cartId       String
+  Cart         Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId       String // cart.id
 }
 
 // for NextAuth
@@ -44,6 +44,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
@@ -52,6 +53,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
 
 model User {
@@ -62,8 +65,11 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Cart          Cart[]
+  // Cart          Cart[]
   cartId        String?
+  role          String?   @default("admin")
+
+  @@map("users")
 }
 
 model VerificationToken {
@@ -72,4 +78,5 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("verificationtokens")
 }

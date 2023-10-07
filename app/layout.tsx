@@ -16,9 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="">
         <Provider>
           <Header />
-          <Suspense>
-            <main>{children}</main>
-          </Suspense>
+          <Suspense>{children}</Suspense>
           <Footer />
         </Provider>
       </body>

@@ -1,11 +1,15 @@
 "use client";
+
 import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { deleteSession } from "@/lib";
 
 export default function SigninButton() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
+
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -34,12 +38,22 @@ export default function SigninButton() {
               Cart
             </Link>
           </li>
+          <li>
+            <Link
+              className=" block px-4 py-2 hover:bg-gray-100"
+              href={`/account`}
+              onClick={() => setOpen(false)}
+            >
+              Account
+            </Link>
+          </li>
         </ul>
         <div className="py-1 text-gray-700 hover:bg-gray-100">
           <button
-            onClick={() => {
-              signOut();
-              router.push("/");
+            onClick={async (e) => {
+              e.preventDefault();
+              // deleteSession();
+              await signOut({ callbackUrl: "/" });
             }}
             className="block px-4 py-2 text-sm"
           >
@@ -64,7 +78,13 @@ export default function SigninButton() {
         }`}
       >
         <div className="py-1 text-gray-700 hover:bg-gray-100">
-          <button onClick={() => signIn()} className="block px-4 py-2 text-sm">
+          <button
+            onClick={async (e) => {
+              e.preventDefault();
+              await signIn();
+            }}
+            className="block px-4 py-2 text-sm"
+          >
             Sign In
           </button>
         </div>

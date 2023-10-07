@@ -1,11 +1,3 @@
-export type Cart = CartItem[];
-
-export type CartItem = {
-  id: string;
-  productTitle: string;
-  quantity: number;
-};
-
 export type Products = Product[];
 
 export type Product = {
