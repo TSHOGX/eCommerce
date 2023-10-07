@@ -6,9 +6,8 @@ export default async function ProductGallery() {
   const products: Products = await getAllProducts();
   return (
     <div className=" product-gallery-container gap-y-6 flex flex-wrap ">
-      
       {products.map((product) => (
-        < ProductCard product = {product} />
+        <ProductCard key={product.id} product={product} />
       ))}
       
     </div>
