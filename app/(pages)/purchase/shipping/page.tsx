@@ -1,3 +1,4 @@
+import { CheckoutFlow } from '@/components/checkout/checkout-flow';
 import React from 'react';
 
 const ShippingEntry = () => {
@@ -6,6 +7,8 @@ const ShippingEntry = () => {
     return (
         <div>
             <h1> {title} </h1>
+            < CheckoutFlow /> 
+
         </div>
     );
 };
