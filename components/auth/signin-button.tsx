@@ -38,14 +38,22 @@ export default function SigninButton() {
               Cart
             </Link>
           </li>
+          <li>
+            <Link
+              className=" block px-4 py-2 hover:bg-gray-100"
+              href={`/account`}
+              onClick={() => setOpen(false)}
+            >
+              Account
+            </Link>
+          </li>
         </ul>
         <div className="py-1 text-gray-700 hover:bg-gray-100">
           <button
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
               // deleteSession();
-              router.push("/"); // not work?
-              signOut();
+              await signOut({ callbackUrl: "/" });
             }}
             className="block px-4 py-2 text-sm"
           >
@@ -71,9 +79,9 @@ export default function SigninButton() {
       >
         <div className="py-1 text-gray-700 hover:bg-gray-100">
           <button
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              signIn();
+              await signIn();
             }}
             className="block px-4 py-2 text-sm"
           >

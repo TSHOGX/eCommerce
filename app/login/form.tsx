@@ -13,8 +13,9 @@ export const LoginForm = () => {
   });
   const [error, setError] = useState("");
 
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  // const searchParams = useSearchParams();
+  // const callbackUrl = searchParams.get("callbackUrl") || "/account";
+  const callbackUrl = "/account";
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +50,6 @@ export const LoginForm = () => {
         {error && <div>Error: {error}</div>}
         <a
           className="uppercase text-white bg-gray-800 hover:bg-gray-900 font-medium rounded text-sm px-8 py-4"
-          // style={{ backgroundColor: "#3b5998" }}
           onClick={() => signIn("google", { callbackUrl })}
           role="button"
         >

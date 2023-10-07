@@ -61,11 +61,22 @@ export async function getAllProducts(): Promise<Products> {
 
 export async function testPrisma() {
   console.log("testPrisma ");
-  // console.log("testPrisma cart", await prisma.cart.findMany());
-  // console.log("testPrisma cartItem", await prisma.cartItem.findMany());
-  // console.log("testPrisma session", await prisma.session.findMany());
-  // console.log("testPrisma user", await prisma.user.findMany());
-  // console.log("testPrisma verifi", await prisma.verificationToken.findMany());
+  console.log("testPrisma cart", await prisma.cart.findMany());
+  console.log("testPrisma cartItem", await prisma.cartItem.findMany());
+  console.log("testPrisma account", await prisma.account.findMany());
+  console.log("testPrisma session", await prisma.session.findMany());
+  console.log("testPrisma user", await prisma.user.findMany());
+  console.log("testPrisma verifi", await prisma.verificationToken.findMany());
+}
+
+export async function testPrismaDeleteAll() {
+  console.log("testPrismaDeleteAll ");
+  console.log("testPrisma cartItem", await prisma.cartItem.deleteMany());
+  console.log("testPrisma cart", await prisma.cart.deleteMany());
+  console.log("testPrisma account", await prisma.account.deleteMany());
+  console.log("testPrisma session", await prisma.session.deleteMany());
+  console.log("testPrisma user", await prisma.user.deleteMany());
+  console.log("testPrisma verifi", await prisma.verificationToken.deleteMany());
 }
 
 export async function deleteSession() {
