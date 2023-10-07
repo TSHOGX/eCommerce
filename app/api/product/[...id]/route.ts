@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { getProductInfo } from "@/lib";
+import { getProductInfo, testPrisma } from "@/lib";
 
 // createCartItem (productID, userEmail)
 export async function GET(
@@ -35,6 +35,7 @@ export async function GET(
     const checkNew = await prisma.cartItem.findFirst({
       where: {
         productId: product.id,
+        cartId: cartDB.id,
       },
     });
 

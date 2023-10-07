@@ -18,6 +18,7 @@ export default async function CartList() {
     throw new Error("User has no email address??");
   }
 
+  // check and get, or create new
   const tryCart = await checkAndGetCart(session.user.email);
 
   if (!tryCart) {

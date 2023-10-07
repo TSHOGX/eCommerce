@@ -1,12 +1,12 @@
 import SigninButton from "@/components/auth/signin-button";
 import EcommerceLogo from "@/components/icons/ecommerce";
 import Link from "next/link";
-import './Navbar.css';
+import "./Navbar.css";
 
 export default async function Header() {
   return (
     <div className="z-50 navbar bg-fixed shadow-xl sticky top-0 py-6 px-6 flex items-end justify-between">
-      <Link className= 'ml-4' href={`/`}>
+      <Link className="ml-4" href={`/`}>
         <EcommerceLogo />
       </Link>
       <div className=" inline-flex gap-4 ">
@@ -27,9 +27,7 @@ export default async function Header() {
         </Link>
 
         <SigninButton />
-   
       </div>
     </div>
-  
   );
 }

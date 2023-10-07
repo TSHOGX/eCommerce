@@ -61,8 +61,34 @@ export async function getAllProducts(): Promise<Products> {
 
 export async function testPrisma() {
   console.log("testPrisma ");
-  console.log("testPrisma cart", await prisma.cart.findMany());
-  console.log("testPrisma user", await prisma.user.findMany());
+  // console.log("testPrisma cart", await prisma.cart.findMany());
+  // console.log("testPrisma cartItem", await prisma.cartItem.findMany());
+  // console.log("testPrisma session", await prisma.session.findMany());
+  // console.log("testPrisma user", await prisma.user.findMany());
+  // console.log("testPrisma verifi", await prisma.verificationToken.findMany());
+}
+
+export async function deleteSession() {
+  const session = await getServerSession(authOptions);
+
+  testPrisma();
+
+  if (!session) {
+    throw new Error("why no session??");
+  }
+
+  if (!session.user?.email) {
+    throw new Error("User has no email address??");
+  }
+
+  // delete user
+  // const res = await prisma.user.deleteMany({
+  //   // where: {
+  //   //   email: session.user.email
+  //   // },
+  // });
+
+  testPrisma();
 }
 
 // Cart - Prisma server side
@@ -70,23 +96,15 @@ export async function checkAndGetCart(email: string): Promise<Cart> {
   try {
     console.log("checkAndGetCart");
 
-    const cartDB = await prisma.cart.findUnique({
+    // testPrisma();
+
+    const cartDB = await prisma.cart.upsert({
       where: {
         userId: email,
       },
+      update: {},
+      create: { userId: email },
     });
-
-    if (!cartDB) {
-      throw {
-        error: "get cart failed",
-      };
-    }
-
-    if (!cartDB.userId) {
-      throw {
-        error: "why no user id??",
-      };
-    }
 
     return cartDB;
   } catch (error) {
@@ -140,20 +158,24 @@ export async function getItemsInCart(): Promise<CartItem[]> {
       throw { error: "User has no email address??" };
     }
 
-    const all = await prisma.cart.findMany({
-      where: {
-        userId: session.user.email,
-      },
-      include: {
-        items: true,
-      },
-    });
+    try {
+      const all = await prisma.cart.findMany({
+        where: {
+          userId: session.user.email,
+        },
+        include: {
+          items: true,
+        },
+      });
 
-    const items: CartItem[] = all[0].items;
+      const items: CartItem[] = all[0].items;
 
-    console.log(items);
+      // console.log("items", items); // if no items, just return []
 
-    return items;
+      return items;
+    } catch (error) {
+      throw error;
+    }
   } catch (error) {
     throw error;
   }

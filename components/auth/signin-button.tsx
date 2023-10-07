@@ -1,11 +1,15 @@
 "use client";
+
 import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { deleteSession } from "@/lib";
 
 export default function SigninButton() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
+
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -37,9 +41,11 @@ export default function SigninButton() {
         </ul>
         <div className="py-1 text-gray-700 hover:bg-gray-100">
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              // deleteSession();
+              router.push("/"); // not work?
               signOut();
-              router.push("/");
             }}
             className="block px-4 py-2 text-sm"
           >
@@ -64,7 +70,13 @@ export default function SigninButton() {
         }`}
       >
         <div className="py-1 text-gray-700 hover:bg-gray-100">
-          <button onClick={() => signIn()} className="block px-4 py-2 text-sm">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+            className="block px-4 py-2 text-sm"
+          >
             Sign In
           </button>
         </div>
