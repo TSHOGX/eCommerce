@@ -1,5 +1,7 @@
-import { CheckoutFlow } from '@/components/checkout/checkout-flow';
+"use client"
+
 import React from 'react';
+import { ShippingForm } from '@/components/shipping/shipping-form/shipping-form';
 
 const ShippingEntry = () => {
     let title = "Shipping Entry Page";
@@ -7,7 +9,8 @@ const ShippingEntry = () => {
     return (
         <div>
             <h1> {title} </h1>
-            < CheckoutFlow /> 
+          < ShippingForm />
+
 
         </div>
     );
