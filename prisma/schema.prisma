@@ -18,11 +18,12 @@ model Cart {
 }
 
 model CartItem {
-  id           String @id @default(cuid())
+  id           String  @id @default(cuid())
   productId    String
   productTitle String
   quantity     Int
-  Cart         Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  size         String?
+  Cart         Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId       String // cart.id
 }
 
