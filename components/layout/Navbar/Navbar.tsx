@@ -18,6 +18,10 @@ export default async function Header() {
           About
         </Link>
 
+        <Link className=" hover:text-teal-400" href={`/contact`}>
+          Contact Us
+        </Link>
+
         <Link className=" hover:text-teal-400" href={`/purchase`}>
           Purchase
         </Link>
