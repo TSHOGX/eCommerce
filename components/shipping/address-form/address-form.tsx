@@ -19,7 +19,7 @@ export const AddressForm: FunctionComponent<AddressFormProps> = ({
 }) => {
 
     return (
-        <div className = 'w-5/6 text-center'>
+        <div>
             < Grid container spacing = {3}>
                 < Grid item xs = {12} sm = {6}>
                     <Field

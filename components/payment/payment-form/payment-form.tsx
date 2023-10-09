@@ -1,10 +1,3 @@
-import { ShippingMethod } from "./components/shipping-method";
-import { AddressForm } from "../address-form/address-form";
-import { CheckoutFlow } from "@/components/checkout/checkout-flow";
-import { shippingFormSchema } from "@/lib/shipping/shipping-fields.schema";
-import { ShippingFormFields } from "./shipping-form-fields.interface";
-import { initialShippingFormFields } from "./shipping-form-fields";
-
 import { Form, Formik } from 'formik';
 import React, { FunctionComponent } from 'react';
 import { Box, FormControl, Typography, Button } from '@mui/material';
@@ -12,25 +5,28 @@ import { styled } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Link from 'next/link';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ShippingFormControl = styled(FormControl)(({ theme }) => ({
+import { initialPaymentFields } from './payment-fields';
+import { AddressForm } from '@/components/shipping/address-form/address-form';
+import { CheckoutFlow } from '@/components/checkout/checkout-flow';
+import { CreditCardForm } from '../credit-card-form/credit-card-form';
+import { paymentFieldsSchema } from '@/lib/payment/payment-fields.schema';
+import { PaymentFields } from './payment-fields.interface';
+import { initialCreditCardFields } from '../credit-card-form/credit-card-fields';
+
+const PaymentFormControl = styled(FormControl)(({ theme }) => ({
     display: 'block',
     marginTop: theme.spacing(2),
 }));
 
 
-// export type ShippingFormProps = {
-//     formTitle: string,
-//     errors?: FormikErrors<AddressFormFields>,
-//     touched?: FormikTouched<AddressFormFields>
-// };
-
-export const ShippingForm = ({
+export const PaymentForm = ({
     // shippingForm,
     // submitShippingForm,
     // clearShippingForm
 }) => {
-    const submitForm = (values: ShippingFormFields) => {
+    const submitForm = (values: PaymentFields) => {
         console.log('Submit shipping form');
     };
     const clearForm = () => {
@@ -42,14 +38,13 @@ export const ShippingForm = ({
         <div className = 'mx-auto w-5/6 mb-12'>           
             < CheckoutFlow />
             < Formik 
-                enableReinitialize = {true}
-                validationSchema = {shippingFormSchema}
-                initialValues = { initialShippingFormFields }
+                validationSchema = { paymentFieldsSchema } 
+                initialValues = { initialPaymentFields }
                 onSubmit = {submitForm}
             >
                 {/* { ({errors, touched, values}) => { */}
                     <Form>
-                        <ShippingFormControl>
+                        <PaymentFormControl>
                             < Button
                                 color = 'primary'
                                 type = 'reset'
@@ -63,31 +58,52 @@ export const ShippingForm = ({
                             >
                                 Clear
                             </Button>
-                        </ShippingFormControl>
+                        </PaymentFormControl>
 
-                        <ShippingFormControl>
+                        <PaymentFormControl>
                             <Typography variant="h5" component = "legend" gutterBottom>
-                                Shipping Address
+                                Billing Address
                             </Typography>
                             <div className = 'mx-auto'>
                             <AddressForm
-                                formTitle="shippingAddress"
+                                formTitle="billingAddress"
                                 // errors={errors.shippingAddress}
                                 // touched={touched.shippingAddress}
                             />
                             </div>                           
-                        </ShippingFormControl>
+                        </PaymentFormControl>
 
-                        <ShippingFormControl>
+                        <PaymentFormControl>
                             <Typography variant="h5" component="legend" gutterBottom>
-                                Shipping Method
+                                Credit Card
                             </Typography>
-                            <ShippingMethod />
-                        </ShippingFormControl>
+                            <CreditCardForm formTitle='creditCard' values = {initialCreditCardFields} />
+                        </PaymentFormControl>
                            
                         
-                        <Box textAlign="right" mt={2}>
-                            < Link href = '/purchase/payment'>
+                        <Box 
+                            textAlign="right" 
+                            mt={2}
+                            display = 'flex'
+                            justifyContent = 'space-between'
+                        >
+
+                            < Link href = '/purchase/shipping'>
+                                <Button
+                                    type="button"
+                                    variant="outlined"
+                                    color="secondary"
+                                    startIcon={<ArrowBackIcon />}
+                                    size="large"
+                                    sx = {{
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    Previous
+                                </Button>
+                            </Link> 
+
+                            < Link href = '/purchase/confirmation'>
                                 <Button
                                     type="submit"
                                     variant="outlined"

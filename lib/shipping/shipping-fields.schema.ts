@@ -1,7 +1,7 @@
 import { mixed, object } from 'yup';
 
 import { addressFieldsSchema } from './address-fields.schema';
-import { ShippingMethod } from '@/components/shipping/shipping-method';
+import { ShippingMethod } from '@/components/shipping/shipping-form/components/shipping-method.enum';
 
 export const shippingFormSchema = () => 
     object().shape({
