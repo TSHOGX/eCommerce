@@ -27,13 +27,13 @@ export default function About() {
           </div>
           <div className="developer">
             <div className="profile">
-              <img className="image" alt="Image" src="https://avatars.githubusercontent.com/u/91095404?s=96&v=4" />
+              <img className="image rounded-xl" alt="Image" src="https://avatars.githubusercontent.com/u/91095404?s=96&v=4" />
               <div className="info">
                 <div className="div">Hailie Payne</div>
-                <div className="text-wrapper-2">email@buckeyemail.osu.edu</div>
+                <div className="text-wrapper-2">payne.733@buckeyemail.osu.edu</div>
               </div>
             </div>
-            <div className="text-wrapper-3">Description</div>
+            <div className="text-wrapper-3"> CTO. BS in Computer Science & Engineering, The Ohio State University. SEP Intern at J.P. Morgan Chase & Co., June 2022 - Present.</div>
           </div>
           <div className="developer">
             <div className="profile">
