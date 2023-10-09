@@ -1,3 +1,140 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.about .body {
+    align-items: flex-start;
+    display: flex;
+    gap: 200px;
+    padding: 80px 150px;
+    position: relative;
+    width: 1440px;
+  }
+  
+  .about .body .developers {
+    align-items: flex-start;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 75px;
+    position: relative;
+  }
+  
+  .about .body .text-wrapper {
+    color: #000000;
+    font-family: "Poppins-Regular", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    width: fit-content;
+  }
+  
+  .about .body .frame {
+    align-items: flex-start;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+  }
+  
+  .about .body .developer {
+    align-items: flex-start;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 100px;
+    position: relative;
+  }
+  
+  .about .body .profile {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 19px;
+    position: relative;
+  }
+  
+  .about .body .image {
+    height: 80px;
+    position: relative;
+    width: 80px;
+  }
+  
+  .about .body .info {
+    align-items: flex-start;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 23px;
+    position: relative;
+  }
+  
+  .about .body .div {
+    color: #000000;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    width: fit-content;
+  }
+  
+  .about .body .text-wrapper-2 {
+    color: #7a7a90;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    line-height: normal;
+    position: relative;
+    width: 274px;
+  }
+  
+  .about .body .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    width: fit-content;
+    inline-size: 200px;
+  }
+  
+  .about .body .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    line-height: normal;
+    margin-top: -1px;
+    position: relative;
+    width: fit-content;
+    inline-size: 800px;
+  }
+
+  .about .body .about-us {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 3;
+    gap: 75px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .about .body .description {
+    align-self: stretch;
+    flex: 0 0 auto;
+    position: relative;
+    width: 100%;
+  }
