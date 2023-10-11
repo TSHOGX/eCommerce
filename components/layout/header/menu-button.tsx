@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import IconButton from "@mui/material/IconButton";
-import UserIcon from "@/components/icons/user";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -49,13 +48,6 @@ export default function MenuButton() {
                 onClick={() => setOpen(false)}
               >
                 About
-              </Link>
-              <Link
-                className=" block px-4 py-2 hover:bg-gray-100"
-                href={`/contact`}
-                onClick={() => setOpen(false)}
-              >
-                Contact us
               </Link>
             </li>
             <li>
@@ -115,13 +107,6 @@ export default function MenuButton() {
               onClick={() => setOpen(false)}
             >
               About
-            </Link>
-            <Link
-              className=" block px-4 py-2 hover:bg-gray-100"
-              href={`/contact`}
-              onClick={() => setOpen(false)}
-            >
-              Contact us
             </Link>
           </li>
           <li>

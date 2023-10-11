@@ -26,10 +26,6 @@ export default async function Header() {
           <Link className=" uppercase hover:text-gray-600" href={`/about`}>
             About
           </Link>
-
-          <Link className=" uppercase hover:text-gray-600" href={`/contact`}>
-            Contact Us
-          </Link>
         </div>
       </div>
 
