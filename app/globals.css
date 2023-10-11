@@ -2,19 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-.contact-head{
-    margin: 0;
-    padding: 20px 0;
-    font-size: x-large;
-    text-align: center;
-  }
+.contact-head {
+  margin: 0;
+  padding: 20px 0;
+  font-size: x-large;
+  text-align: center;
+}
 
 .contact-body {
-    font-size: large;
-  }
+  font-size: large;
+}
 
 .contact-page {
-    line-height: 2;
-    width: 500px;
-    margin: auto;
+  line-height: 2;
+  width: 500px;
+  margin: auto;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("/Roboto-Regular.ttf");
 }
