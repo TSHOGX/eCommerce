@@ -32,7 +32,7 @@ export default async function Header() {
       <div className=" items-center gap-8 hidden lg:inline-flex">
         <ProductSearch />
 
-        <Link href={`/purchase`}>
+        <Link href={`/cart`}>
           <IconButton>
             <CartIcon />
           </IconButton>

@@ -2,6 +2,7 @@ import AddToCartButton from "@/components/product/add-to-cart-button";
 import { getProductInfo } from "@/lib";
 import { Product } from "@/lib/types";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function ProductPage({
   params,
@@ -31,7 +32,7 @@ export default async function ProductPage({
         Back To Main Page
       </Link>
       {product.images.map((imageURL, imageURLInedx) => (
-        <img
+        <Image
           key={imageURLInedx}
           className=" h-auto max-w-md rounded-lg"
           src={imageURL}

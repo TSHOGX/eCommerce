@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import Image from "next/image";
 
 export default function About() {
   const [form, setForm] = useState({
@@ -60,7 +61,11 @@ export default function About() {
     <div className=" container mx-auto">
       <div className=" mx-20 mb-20">
         <div className=" w-fit justify-center my-12 mx-8 md:mx-auto">
-          <img className=" max-w-full" src="./black-logo-full.png" alt="" />
+          <Image
+            className=" max-w-full"
+            src="./black-logo-full.png"
+            alt="black logo full"
+          />
         </div>
 
         {/* Content */}
@@ -88,9 +93,10 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <img
+                  <Image
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/13644713?v=4"
+                    alt="avatar"
                   />
                   <div className=" flex flex-col h-full gap-4">
                     <div className=" text-xl">Will Keiser</div>
@@ -107,9 +113,10 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <img
+                  <Image
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/91095404?s=96&v=4"
+                    alt="avatar"
                   />
                   <div className=" flex flex-col h-full gap-4">
                     <div className=" text-xl">Hailie Payne</div>
@@ -127,9 +134,10 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <img
+                  <Image
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/76884323?v=4"
+                    alt="avatar"
                   />
                   <div className=" flex flex-col h-full gap-4">
                     <div className=" text-xl">Jingjun Gu</div>

@@ -3,6 +3,7 @@ import SignoutButton from "@/components/auth/signout-button";
 import { checkAndGetCart, testPrisma, testPrismaDeleteAll } from "@/lib";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Account() {
   // testPrisma();
@@ -39,9 +40,10 @@ export default async function Account() {
 
         <div className=" flex flex-col lg:flex-row gap-8 lg:gap-0 justify-between">
           <div className=" flex gap-8">
-            <img
+            <Image
               className=" rounded-full w-20 h-20"
               src={session.user.image ?? ""}
+              alt="user avatar"
             />
             <div className=" flex flex-col my-1 h-full gap-4">
               <div className=" text-2xl">{session.user.name}</div>
@@ -49,7 +51,7 @@ export default async function Account() {
             </div>
           </div>
           <div className=" flex flex-row my-1 gap-12 mx-4 uppercase">
-            <Link className=" hover:text-gray-600" href={`/purchase`}>
+            <Link className=" hover:text-gray-600" href={`/cart`}>
               Shopping cart
             </Link>
             <div className=" hover:text-gray-600">

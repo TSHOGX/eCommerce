@@ -2,7 +2,7 @@
 
 import { Cart, CartItem, Prisma } from "@prisma/client";
 import prisma from "./db";
-import { Product, Products } from "./types";
+import { CartList, Product, Products } from "./types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
@@ -194,7 +194,7 @@ export async function createCart(email: string): Promise<Cart> {
 }
 
 // CartItem - Prisma server side
-export async function getItemsInCart(): Promise<CartItem[]> {
+export async function getItemsInCart(): Promise<CartList> {
   try {
     console.log("getItemsInCart");
 
@@ -220,9 +220,24 @@ export async function getItemsInCart(): Promise<CartItem[]> {
 
       const items: CartItem[] = all[0].items;
 
+      let cartList: CartList = [];
+      for (const item of items) {
+        const productInfo: Product = await getProductInfo(item.productId);
+        cartList.push({
+          id: item.id,
+          image: productInfo.images[0],
+          productCategory: productInfo.subtitle,
+          prize: productInfo.price,
+          productId: item.productId,
+          productTitle: item.productTitle,
+          quantity: item.quantity,
+          size: item.size,
+        });
+      }
+
       // console.log("items", items); // if no items, just return []
 
-      return items;
+      return cartList;
     } catch (error) {
       throw error;
     }

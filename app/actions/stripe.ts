@@ -24,7 +24,7 @@ function formatAmountForStripe(amount: number, currency: string): number {
   return zeroDecimalCurrency ? amount : Math.round(amount * 100);
 }
 
-export async function createCheckoutSession(data: FormData): Promise<void> {
+export async function createCheckoutSession(data: string): Promise<void> {
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
       mode: "payment",
@@ -37,10 +37,7 @@ export async function createCheckoutSession(data: FormData): Promise<void> {
             product_data: {
               name: "Custom amount donation",
             },
-            unit_amount: formatAmountForStripe(
-              Number(data.get("customDonation") as string),
-              CURRENCY
-            ),
+            unit_amount: formatAmountForStripe(Number(data), CURRENCY),
           },
         },
       ],
@@ -54,8 +51,8 @@ export async function createCheckoutSession(data: FormData): Promise<void> {
       },
       success_url: `${headers().get(
         "origin"
-      )}/purchase/result?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${headers().get("origin")}/purchase`,
+      )}/checkout/result?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${headers().get("origin")}/checkout`,
     });
 
   redirect(checkoutSession.url as string);

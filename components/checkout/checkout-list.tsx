@@ -1,12 +1,11 @@
-import ChangeQuantityButton from "./change-quantity-button";
 import { checkAndGetCart, createCart, getItemsInCart } from "@/lib";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { Cart } from "@prisma/client";
-import CartToCheckout from "./cart-to-checkout";
 import Image from "next/image";
+import CheckoutButton from "./checkout-button";
 
-export default async function CartList() {
+export default async function CheckoutList() {
   let cart: Cart;
 
   const session = await getServerSession(authOptions);
@@ -44,7 +43,7 @@ export default async function CartList() {
       <div className=" mx-auto w-fit my-20">
         <div className=" flex flex-row gap-40">
           <div className=" flex flex-col gap-3 min-w-[556px]">
-            <div className=" text-2xl font-bold">Shopping Cart</div>
+            <div className=" text-2xl font-bold">In Your Cart</div>
 
             <div className=" text-base text-gray-500">
               Total {cartList.length} item(s) in the cart
@@ -74,7 +73,6 @@ export default async function CartList() {
                         <div>Size {cartItem.size}</div>
                         <div>Quantity {cartItem.quantity}</div>
                       </div>
-                      <ChangeQuantityButton item={cartItem} />
                     </div>
                   </div>
 
@@ -89,7 +87,7 @@ export default async function CartList() {
           </div>
 
           <div className=" flex flex-col gap-3 min-w-[350px]">
-            <div className=" text-2xl font-bold">Summary</div>
+            <div className=" text-2xl font-bold">Checkout</div>
 
             <div className=" flex flex-row justify-between">
               <div>Subtotal</div>
@@ -113,7 +111,7 @@ export default async function CartList() {
 
             <div className="w-full h-0.5 mx-auto bg-gray-300 border-0"></div>
 
-            <CartToCheckout />
+            <CheckoutButton total={subtotal.toString()} />
           </div>
         </div>
       </div>

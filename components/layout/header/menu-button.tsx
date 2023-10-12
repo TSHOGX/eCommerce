@@ -37,7 +37,7 @@ export default function MenuButton() {
               </Link>
               <Link
                 className=" block px-4 py-2 hover:bg-gray-100"
-                href={`/purchase`}
+                href={`/cart`}
                 onClick={() => setOpen(false)}
               >
                 Your Cart
