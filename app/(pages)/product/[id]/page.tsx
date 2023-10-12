@@ -32,7 +32,7 @@ export default async function ProductPage({
         Back To Main Page
       </Link>
       {product.images.map((imageURL, imageURLInedx) => (
-        <Image
+        <img
           key={imageURLInedx}
           className=" h-auto max-w-md rounded-lg"
           src={imageURL}

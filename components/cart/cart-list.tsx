@@ -57,7 +57,7 @@ export default async function CartList() {
                   key={cartItem.id}
                 >
                   <div className=" flex flex-row gap-12">
-                    <Image
+                    <img
                       src={cartItem.image}
                       alt="cartItem Imag"
                       className=" w-32 h-32"

@@ -40,7 +40,7 @@ export default async function Account() {
 
         <div className=" flex flex-col lg:flex-row gap-8 lg:gap-0 justify-between">
           <div className=" flex gap-8">
-            <Image
+            <img
               className=" rounded-full w-20 h-20"
               src={session.user.image ?? ""}
               alt="user avatar"

@@ -61,7 +61,7 @@ export default function About() {
     <div className=" container mx-auto">
       <div className=" mx-20 mb-20">
         <div className=" w-fit justify-center my-12 mx-8 md:mx-auto">
-          <Image
+          <img
             className=" max-w-full"
             src="./black-logo-full.png"
             alt="black logo full"
@@ -93,7 +93,7 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <Image
+                  <img
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/13644713?v=4"
                     alt="avatar"
@@ -113,7 +113,7 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <Image
+                  <img
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/91095404?s=96&v=4"
                     alt="avatar"
@@ -134,7 +134,7 @@ export default function About() {
 
               <div className=" grid lg:grid-cols-2 gap-2">
                 <div className=" flex gap-4">
-                  <Image
+                  <img
                     className=" rounded-full w-16 h-16"
                     src="https://avatars.githubusercontent.com/u/76884323?v=4"
                     alt="avatar"

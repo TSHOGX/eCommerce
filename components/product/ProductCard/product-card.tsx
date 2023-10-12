@@ -9,7 +9,7 @@ export default async function ProductCard({ product }: { product: Product }) {
     <div className="product-card w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4">
       <div className="relative">
         <Link className="hover:bg-gray-900" href={`/product/${product.id}`}>
-          <Image
+          <img
             className="h-64 w-56 mx-auto rounded-lg shadow-lg"
             key={product.id}
             src={product.images[0]}

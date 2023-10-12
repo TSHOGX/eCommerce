@@ -7,7 +7,7 @@ export default async function Home() {
   const products: Products = await getAllProducts();
   return (
     <div className=" flex flex-col items-center justify-between pb-44">
-      <Image
+      <img
         className=" w-full"
         src="./head-background.png"
         alt="head background"
