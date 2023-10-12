@@ -5,6 +5,7 @@ import type { Stripe } from "stripe";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
+import { CartList } from "@/lib/types";
 
 const CURRENCY = "usd";
 
@@ -24,23 +25,30 @@ function formatAmountForStripe(amount: number, currency: string): number {
   return zeroDecimalCurrency ? amount : Math.round(amount * 100);
 }
 
-export async function createCheckoutSession(data: string): Promise<void> {
+export async function createCheckoutSession(cartList: CartList): Promise<void> {
+  let items = [];
+
+  for (const cartItem of cartList) {
+    items.push({
+      quantity: cartItem.quantity,
+      price_data: {
+        currency: CURRENCY,
+        product_data: {
+          name: cartItem.productTitle,
+        },
+        unit_amount: formatAmountForStripe(
+          Number(cartItem.prize) * cartItem.quantity,
+          CURRENCY
+        ),
+      },
+    });
+  }
+
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
       mode: "payment",
       // submit_type: "donate",
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: CURRENCY,
-            product_data: {
-              name: "Custom amount donation",
-            },
-            unit_amount: formatAmountForStripe(Number(data), CURRENCY),
-          },
-        },
-      ],
+      line_items: items,
       shipping_address_collection: {
         allowed_countries: ["US"],
       },

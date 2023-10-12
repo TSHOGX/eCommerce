@@ -111,7 +111,7 @@ export default async function CheckoutList() {
 
             <div className="w-full h-0.5 mx-auto bg-gray-300 border-0"></div>
 
-            <CheckoutButton total={subtotal.toString()} />
+            <CheckoutButton cartList={cartList} />
           </div>
         </div>
       </div>

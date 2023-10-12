@@ -1,9 +1,10 @@
 "use client";
 import { createCheckoutSession } from "@/app/actions/stripe";
+import { CartList } from "@/lib/types";
 
-export default function CheckoutButton({ total }: { total: string }) {
+export default function CheckoutButton({ cartList }: { cartList: CartList }) {
   function handleClick() {
-    createCheckoutSession(total);
+    createCheckoutSession(cartList);
   }
 
   return (
