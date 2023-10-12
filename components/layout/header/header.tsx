@@ -8,7 +8,7 @@ import MenuButton from "./menu-button";
 
 export default async function Header() {
   return (
-    <div className=" z-50 bg-white bg-fixed sticky top-0 py-4 px-8 flex items-end justify-between">
+    <div className=" z-50 bg-white bg-fixed sticky top-0 py-2 px-8 flex justify-between">
       <div className=" items-center inline-flex gap-12">
         <Link href={`/`}>
           <EcommerceLogo />
@@ -19,7 +19,7 @@ export default async function Header() {
             Home
           </Link>
 
-          <Link className=" uppercase hover:text-gray-600" href={`/`}>
+          <Link className=" uppercase hover:text-gray-600" href={`/search`}>
             Products
           </Link>
 

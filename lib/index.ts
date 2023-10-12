@@ -6,13 +6,52 @@ import { Product, Products } from "./types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
-const DynamoDBENDPOINT =
+const DynamoDBCRUDENDPOINT =
   "https://3w50jb0ire.execute-api.us-east-2.amazonaws.com";
+
+const DynamoDBRESTENDPOINT =
+  "https://079o2llti9.execute-api.us-east-2.amazonaws.com/test";
+
+// Product - DynamoDB
+export async function searchProducts(
+  searchValue: string,
+  searchFilter: string,
+  searchSort: string
+): Promise<Products> {
+  try {
+    const value = searchValue ?? "";
+    const filter = searchFilter ?? "";
+    const sort = searchSort ?? "";
+
+    const response = await fetch(
+      `${DynamoDBRESTENDPOINT}/get?value=${value}&filter=${filter}&sort=${sort}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.errors) {
+      throw data.errors[0];
+    }
+
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    throw {
+      error: error,
+    };
+  }
+}
 
 // Product - DynamoDB
 export async function getProductInfo(productID: string): Promise<Product> {
   try {
-    const response = await fetch(`${DynamoDBENDPOINT}/items/${productID}`, {
+    const response = await fetch(`${DynamoDBCRUDENDPOINT}/items/${productID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +76,7 @@ export async function getProductInfo(productID: string): Promise<Product> {
 // Product - DynamoDB
 export async function getAllProducts(): Promise<Products> {
   try {
-    const response = await fetch(`${DynamoDBENDPOINT}/items`, {
+    const response = await fetch(`${DynamoDBCRUDENDPOINT}/items`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
