@@ -13,11 +13,7 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 
-export default async function ProductGallery({
-  products,
-}: {
-  products: Products;
-}) {
+export default function ProductGallery({ products }: { products: Products }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
