@@ -15,7 +15,7 @@ export default async function ProductCard({ product }: { product: Product }) {
           />
         </Link>
         <div className=" absolute mx-1 top-1">
-          <AddToCartIcon productID={product.id} productTitle={product.name} />
+          <AddToCartIcon productID={product.id} />
         </div>
       </div>
 

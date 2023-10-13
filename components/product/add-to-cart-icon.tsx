@@ -8,12 +8,7 @@ import { IconButton } from "@mui/material";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Button } from "@nextui-org/react";
 
-export default function AddToCartIcon({
-  productID,
-}: {
-  productID: string;
-  productTitle: string;
-}) {
+export default function AddToCartIcon({ productID }: { productID: string }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const { data: session, status } = useSession();
@@ -28,7 +23,7 @@ export default function AddToCartIcon({
             <IconButton
               onClick={() => {
                 startTransition(async () => {
-                  // await createCartItem(productID, sessionEmail);
+                  await createCartItem(productID, sessionEmail);
                   router.refresh();
                 });
               }}

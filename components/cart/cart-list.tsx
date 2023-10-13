@@ -4,6 +4,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { Cart } from "@prisma/client";
 import CartToCheckout from "./cart-to-checkout";
+import ErrorAuth from "../error-auth";
+import Link from "next/link";
 
 export default async function CartList() {
   let cart: Cart;
@@ -11,7 +13,7 @@ export default async function CartList() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    throw new Error("Please Login First!");
+    return <ErrorAuth />;
   }
 
   if (!session.user?.email) {
@@ -62,16 +64,20 @@ export default async function CartList() {
                   key={cartItem.id}
                 >
                   <div className=" flex flex-row gap-3 lg:gap-12">
-                    <img
-                      src={cartItem.image}
-                      alt="cartItem Imag"
-                      className=" w-32 h-32"
-                    />
+                    <Link href={`/product/${cartItem.productId}`}>
+                      <img
+                        src={cartItem.image}
+                        alt="cartItem Imag"
+                        className=" w-32 h-32"
+                      />
+                    </Link>
 
                     <div className=" flex flex-col gap-1 lg:min-w-[250px] my-1">
-                      <div className=" text-base font-bold">
-                        {cartItem.productTitle}
-                      </div>
+                      <Link href={`/product/${cartItem.productId}`}>
+                        <div className=" text-base font-bold">
+                          {cartItem.productTitle}
+                        </div>
+                      </Link>
                       <div className=" text-base text-gray-500">
                         {cartItem.productCategory}
                       </div>

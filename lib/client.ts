@@ -5,14 +5,24 @@ const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 export async function createCartItem(
   productID: string,
   userEmail: string,
-  selectedSize: string
+  selectedSize?: string
 ) {
   try {
     console.log("createCartItem");
 
+    // check size
+    let sizeNow;
+    if (!selectedSize) {
+      sizeNow = "NONE";
+    } else {
+      sizeNow = selectedSize;
+    }
+
+    sizeNow = sizeNow.replace("/", "-");
+
     // create or update
     const res = await fetch(
-      `${ENDPOINT}/api/product/${productID}/${userEmail}/${selectedSize}`,
+      `${ENDPOINT}/api/product/${productID}/${userEmail}/${sizeNow}`,
       {
         method: "GET",
         headers: {

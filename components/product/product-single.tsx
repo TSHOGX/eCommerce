@@ -6,7 +6,7 @@ import React, { MouseEvent, useState } from "react";
 import AddToCartButton from "./add-to-cart-button";
 
 export default function ProductSingle({ product }: { product: Product }) {
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState(product.size[0]);
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
   function handleSizeClick(

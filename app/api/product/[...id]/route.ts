@@ -30,6 +30,16 @@ export async function GET(
     // get product
     const product = await getProductInfo(productID);
 
+    // check size
+    let sizeNow;
+    if (selectedSize == "NONE") {
+      sizeNow = product.size[0];
+    } else {
+      sizeNow = selectedSize;
+    }
+
+    sizeNow = sizeNow.replace("-", "/");
+
     // create cartItem
     console.log("  create or update cart itemDB");
 
@@ -37,7 +47,7 @@ export async function GET(
       where: {
         productId: product.id,
         cartId: cartDB.id,
-        size: selectedSize,
+        size: sizeNow,
       },
     });
 
@@ -59,7 +69,7 @@ export async function GET(
           productTitle: product.name,
           quantity: 1,
           cartId: cartDB.id,
-          size: selectedSize,
+          size: sizeNow,
         },
       });
 
