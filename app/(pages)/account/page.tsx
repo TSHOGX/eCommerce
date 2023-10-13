@@ -8,7 +8,6 @@ import {
 } from "@/lib";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import Image from "next/image";
 
 export default async function Account() {
   // testPrisma();
@@ -85,7 +84,7 @@ export default async function Account() {
                   {order.transProducts.map((product) => (
                     <div
                       key={order.id + product.productID}
-                      className=" grid grid-cols-2 text-base font-normal text-gray-500 dark:text-gray-400"
+                      className=" grid grid-cols-3 text-base font-normal text-gray-500 dark:text-gray-400"
                     >
                       <div>
                         Product:{` `}
@@ -97,6 +96,7 @@ export default async function Account() {
                         </Link>
                       </div>
                       <div>Quantity: {product.quantity}</div>
+                      <div>Size: {product.size}</div>
                     </div>
                   ))}
                 </li>

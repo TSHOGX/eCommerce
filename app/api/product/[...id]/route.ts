@@ -14,6 +14,7 @@ export async function GET(
 
     const productID = params.id[0];
     const userEmail = params.id[1];
+    const selectedSize = params.id[2];
 
     // get cart now
     const cartDB = await prisma.cart.findUnique({
@@ -36,6 +37,7 @@ export async function GET(
       where: {
         productId: product.id,
         cartId: cartDB.id,
+        size: selectedSize,
       },
     });
 
@@ -57,6 +59,7 @@ export async function GET(
           productTitle: product.name,
           quantity: 1,
           cartId: cartDB.id,
+          size: selectedSize,
         },
       });
 

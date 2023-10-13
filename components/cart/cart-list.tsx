@@ -36,6 +36,12 @@ export default async function CartList() {
         subtotal += parseFloat(item.prize) * item.quantity;
       }
     }
+  } else {
+    return (
+      <div className="flex flex-col items-center justify-between p-24">
+        <div className="text-xl font-bold">Cart is empty</div>
+      </div>
+    );
   }
 
   return (

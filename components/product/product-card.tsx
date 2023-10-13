@@ -1,5 +1,5 @@
 import { Product } from "@/lib/types";
-import AddToCartButton from "./add-to-cart-button";
+import AddToCartIcon from "./add-to-cart-icon";
 import Link from "next/link";
 
 export default async function ProductCard({ product }: { product: Product }) {
@@ -15,7 +15,7 @@ export default async function ProductCard({ product }: { product: Product }) {
           />
         </Link>
         <div className=" absolute mx-1 top-1">
-          <AddToCartButton productID={product.id} productTitle={product.name} />
+          <AddToCartIcon productID={product.id} productTitle={product.name} />
         </div>
       </div>
 

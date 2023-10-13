@@ -2,13 +2,17 @@
 const ENDPOINT = "https://e-commerce-tawny-eight.vercel.app";
 
 // CartItem - Prisma client request
-export async function createCartItem(productID: string, userEmail: string) {
+export async function createCartItem(
+  productID: string,
+  userEmail: string,
+  selectedSize: string
+) {
   try {
     console.log("createCartItem");
 
     // create or update
     const res = await fetch(
-      `${ENDPOINT}/api/product/${productID}/${userEmail}`,
+      `${ENDPOINT}/api/product/${productID}/${userEmail}/${selectedSize}`,
       {
         method: "GET",
         headers: {

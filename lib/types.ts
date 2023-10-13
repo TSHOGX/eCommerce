@@ -8,6 +8,7 @@ export type Transaction = {
 export type TransProduct = {
   productID: string;
   quantity: number;
+  size: string;
 };
 
 export type CartList = CartListItem[];

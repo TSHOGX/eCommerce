@@ -58,6 +58,7 @@ export default async function Result({
     transProducts.push({
       productID: cartItem.productId,
       quantity: cartItem.quantity,
+      size: cartItem.size ?? "",
     });
   }
 
