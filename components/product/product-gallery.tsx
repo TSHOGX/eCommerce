@@ -83,8 +83,8 @@ export default function ProductGallery({ products }: { products: Products }) {
 
   return (
     <div className=" container mx-auto">
-      <div className=" mx-20">
-        <div className=" flex flex-row justify-between my-2">
+      <div className=" mx-8 lg:mx-20">
+        <div className=" flex flex-row justify-between my-4">
           <div className=" text-xl items-center">Shoes</div>
 
           <div className=" flex flex-row gap-10">

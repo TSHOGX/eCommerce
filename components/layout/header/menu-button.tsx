@@ -44,7 +44,7 @@ export default function MenuButton() {
               </Link>
               <Link
                 className=" block px-4 py-2 hover:bg-gray-100"
-                href={`/About`}
+                href={`/about`}
                 onClick={() => setOpen(false)}
               >
                 About
@@ -103,19 +103,10 @@ export default function MenuButton() {
             </Link>
             <Link
               className=" block px-4 py-2 hover:bg-gray-100"
-              href={`/About`}
+              href={`/about`}
               onClick={() => setOpen(false)}
             >
               About
-            </Link>
-          </li>
-          <li>
-            <Link
-              className=" block px-4 py-2 hover:bg-gray-100"
-              href={`/account`}
-              onClick={() => setOpen(false)}
-            >
-              Account
             </Link>
           </li>
         </ul>

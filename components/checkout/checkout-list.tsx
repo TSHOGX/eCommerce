@@ -2,7 +2,6 @@ import { checkAndGetCart, createCart, getItemsInCart } from "@/lib";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { Cart } from "@prisma/client";
-import Image from "next/image";
 import CheckoutButton from "./checkout-button";
 
 export default async function CheckoutList() {
@@ -41,8 +40,8 @@ export default async function CheckoutList() {
   return (
     <div className=" container mx-auto">
       <div className=" mx-auto w-fit my-20">
-        <div className=" flex flex-row gap-40">
-          <div className=" flex flex-col gap-3 min-w-[556px]">
+        <div className=" flex flex-col gap-12 lg:gap-40 lg:flex-row">
+          <div className=" flex flex-col gap-3 lg:min-w-[556px]">
             <div className=" text-2xl font-bold">In Your Cart</div>
 
             <div className=" text-base text-gray-500">
@@ -52,17 +51,17 @@ export default async function CheckoutList() {
             <div className=" flex flex-col gap-9">
               {cartList.map((cartItem) => (
                 <div
-                  className=" flex flex-row gap-12 justify-between"
+                  className=" flex flex-row gap-3 lg:gap-12 justify-between"
                   key={cartItem.id}
                 >
-                  <div className=" flex flex-row gap-12">
+                  <div className=" flex flex-row gap-3 lg:gap-12">
                     <img
                       src={cartItem.image}
                       alt="cartItem Imag"
                       className=" w-32 h-32"
                     />
 
-                    <div className=" flex flex-col gap-1 min-w-[250px] my-1">
+                    <div className=" flex flex-col gap-1 lg:min-w-[250px] my-1">
                       <div className=" text-base font-bold">
                         {cartItem.productTitle}
                       </div>
@@ -89,7 +88,7 @@ export default async function CheckoutList() {
             </div>
           </div>
 
-          <div className=" flex flex-col gap-3 min-w-[350px]">
+          <div className=" flex flex-col gap-3 min-w-[350px] mb-20">
             <div className=" text-2xl font-bold">Checkout</div>
 
             <div className=" flex flex-row justify-between">
