@@ -36,10 +36,7 @@ export async function createCheckoutSession(cartList: CartList): Promise<void> {
         product_data: {
           name: cartItem.productTitle,
         },
-        unit_amount: formatAmountForStripe(
-          Number(cartItem.prize) * cartItem.quantity,
-          CURRENCY
-        ),
+        unit_amount: formatAmountForStripe(Number(cartItem.prize), CURRENCY),
       },
     });
   }

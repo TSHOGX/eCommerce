@@ -1,3 +1,15 @@
+export type Transaction = {
+  id: string;
+  timestamp: string;
+  accountEmail: string;
+  transProducts: TransProduct[];
+};
+
+export type TransProduct = {
+  productID: string;
+  quantity: number;
+};
+
 export type CartList = CartListItem[];
 
 export type CartListItem = {

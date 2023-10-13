@@ -78,7 +78,10 @@ export default async function CheckoutList() {
 
                   <div>
                     <div className=" font-semibold text-gray-700">
-                      ${parseFloat(cartItem.prize ?? "") * cartItem.quantity}
+                      $
+                      {(
+                        parseFloat(cartItem.prize ?? "") * cartItem.quantity
+                      ).toFixed(2)}
                     </div>
                   </div>
                 </div>
@@ -91,7 +94,7 @@ export default async function CheckoutList() {
 
             <div className=" flex flex-row justify-between">
               <div>Subtotal</div>
-              <div>${subtotal}</div>
+              <div>${subtotal.toFixed(2)}</div>
             </div>
             <div className=" flex flex-row justify-between">
               <div>Estimated Shipping & Handling</div>
@@ -106,7 +109,7 @@ export default async function CheckoutList() {
 
             <div className=" flex flex-row justify-between">
               <div>Total</div>
-              <div>${subtotal}</div>
+              <div>${subtotal.toFixed(2)}</div>
             </div>
 
             <div className="w-full h-0.5 mx-auto bg-gray-300 border-0"></div>

@@ -1,6 +1,11 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import SignoutButton from "@/components/auth/signout-button";
-import { checkAndGetCart, testPrisma, testPrismaDeleteAll } from "@/lib";
+import {
+  checkAndGetCart,
+  getUserOrders,
+  testPrisma,
+  testPrismaDeleteAll,
+} from "@/lib";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,6 +27,10 @@ export default async function Account() {
   // check and get, or create new
   await checkAndGetCart(session.user.email);
 
+  // get orders
+  const userOrders = await getUserOrders(session.user.email);
+  // console.log(userOrders);
+
   // get time
   const hourNow = new Date().getHours();
   let greeding;
@@ -38,7 +47,7 @@ export default async function Account() {
       <div className=" my-20">
         <div className=" mb-16 text-4xl lg:text-5xl">{greeding}</div>
 
-        <div className=" flex flex-col lg:flex-row gap-8 lg:gap-0 justify-between">
+        <div className=" mb-16 flex flex-col lg:flex-row gap-8 lg:gap-0 justify-between">
           <div className=" flex gap-8">
             <img
               className=" rounded-full w-20 h-20"
@@ -57,6 +66,42 @@ export default async function Account() {
             <div className=" hover:text-gray-600">
               <SignoutButton />
             </div>
+          </div>
+        </div>
+
+        <div className=" flex flex-col gap-6 ">
+          <div className=" text-xl font-semibold">Past Orders</div>
+
+          <div>
+            <ol className=" relative ml-2 border-l border-gray-200 dark:border-gray-700">
+              {userOrders.map((order) => (
+                <li className="mb-10 ml-4" key={order.id}>
+                  <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+
+                  <div className="text-base font-semibold text-gray-900 dark:text-white">
+                    {order.timestamp.split("T")[0]}
+                  </div>
+
+                  {order.transProducts.map((product) => (
+                    <div
+                      key={order.id + product.productID}
+                      className=" grid grid-cols-2 text-base font-normal text-gray-500 dark:text-gray-400"
+                    >
+                      <div>
+                        Product:{` `}
+                        <Link
+                          href={`/product/${product.productID}`}
+                          className=" underline"
+                        >
+                          {product.productID}
+                        </Link>
+                      </div>
+                      <div>Quantity: {product.quantity}</div>
+                    </div>
+                  ))}
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </div>

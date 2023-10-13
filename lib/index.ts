@@ -2,7 +2,7 @@
 
 import { Cart, CartItem, Prisma } from "@prisma/client";
 import prisma from "./db";
-import { CartList, Product, Products } from "./types";
+import { CartList, Product, Products, Transaction } from "./types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
@@ -11,6 +11,57 @@ const DynamoDBCRUDENDPOINT =
 
 const DynamoDBRESTENDPOINT =
   "https://079o2llti9.execute-api.us-east-2.amazonaws.com/test";
+
+const DynamoDBTRANSENDPOINT =
+  "https://2p7yojc8r9.execute-api.us-east-2.amazonaws.com";
+
+// Transaction - DynamoDB
+export async function putOrder(order: Transaction) {
+  try {
+    const response = await fetch(`${DynamoDBTRANSENDPOINT}/orders`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    throw {
+      error: error,
+    };
+  }
+}
+
+// Transaction - DynamoDB
+export async function getUserOrders(email: string): Promise<Transaction[]> {
+  try {
+    const response = await fetch(
+      `${DynamoDBTRANSENDPOINT}/orders-user/${email}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.errors) {
+      throw data.errors[0];
+    }
+
+    return data;
+  } catch (error) {
+    throw {
+      error: error,
+    };
+  }
+}
 
 // Product - DynamoDB
 export async function searchProducts(
@@ -183,6 +234,28 @@ export async function createCart(email: string): Promise<Cart> {
     }
 
     return cartDB;
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        console.log("There is a unique constraint violation");
+      }
+    }
+    throw error;
+  }
+}
+
+// Cart - Prisma server side
+export async function deleteCart(email: string) {
+  try {
+    console.log("deleteCart");
+
+    await prisma.cart.deleteMany({
+      where: {
+        userId: email,
+      },
+    });
+
+    console.log("deleteCart finished");
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
