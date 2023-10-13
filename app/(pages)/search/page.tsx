@@ -1,6 +1,8 @@
 import ProductGallery from "@/components/product/product-gallery";
+import ProductLoading from "@/components/product/product-loading";
 import { searchProducts } from "@/lib";
 import { Products } from "@/lib/types";
+import { Suspense } from "react";
 
 export default async function Search({
   searchParams,
@@ -37,7 +39,9 @@ export default async function Search({
   return (
     <div className=" flex flex-col items-center justify-between pb-44">
       <div className=" container mx-auto">
-        <ProductGallery products={products} />
+        <Suspense fallback={<ProductLoading />}>
+          <ProductGallery products={products} />
+        </Suspense>
       </div>
     </div>
   );

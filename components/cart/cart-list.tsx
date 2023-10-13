@@ -80,7 +80,10 @@ export default async function CartList() {
 
                   <div>
                     <div className=" font-semibold text-gray-700">
-                      ${parseFloat(cartItem.prize ?? "") * cartItem.quantity}
+                      $
+                      {(
+                        parseFloat(cartItem.prize ?? "") * cartItem.quantity
+                      ).toFixed(2)}
                     </div>
                   </div>
                 </div>

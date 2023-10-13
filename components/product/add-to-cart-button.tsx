@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { createCartItem } from "@/lib/client";
 import { useTransition } from "react";
+import { IconButton } from "@mui/material";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { Button } from "@nextui-org/react";
 
 export default function AddToCartButton({
   productID,
@@ -20,26 +23,24 @@ export default function AddToCartButton({
   return (
     <div>
       {session && sessionEmail ? (
-        <button
-          disabled={isPending}
-          className="text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-full text-sm px-4 py-2"
-          onClick={() => {
-            startTransition(async () => {
-              await createCartItem(productID, sessionEmail);
-              router.refresh();
-            });
-          }}
-        >
-          {isPending ? <div>adding</div> : <div>Add To Cart</div>}
-        </button>
+        <div>
+          {!isPending ? (
+            <IconButton
+              onClick={() => {
+                startTransition(async () => {
+                  await createCartItem(productID, sessionEmail);
+                  router.refresh();
+                });
+              }}
+            >
+              <ShoppingBasketIcon sx={{ color: "white" }} />
+            </IconButton>
+          ) : (
+            <Button isLoading isIconOnly className=" bg-transparent" />
+          )}
+        </div>
       ) : (
         <></>
-        // <button
-        //   disabled
-        //   className=" disabled:opacity-90 text-white bg-gray-800 font-medium rounded-full text-sm px-4 py-2"
-        // >
-        //   {isPending ? <div>adding</div> : <div>Add To Cart</div>}
-        // </button>
       )}
     </div>
   );

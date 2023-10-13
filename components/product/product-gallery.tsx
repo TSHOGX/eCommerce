@@ -1,7 +1,7 @@
 "use client";
 
 import { Products } from "@/lib/types";
-import ProductCard from "./ProductCard/product-card";
+import ProductCard from "./product-card";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -136,7 +136,7 @@ export default function ProductGallery({ products }: { products: Products }) {
           </div>
         </div>
 
-        <div className=" product-gallery-container gap-y-6 flex flex-wrap ">
+        <div className=" my-5 flex flex-wrap gap-8 w-fit mx-auto justify-center">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
