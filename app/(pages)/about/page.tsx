@@ -142,7 +142,7 @@ export default function About() {
                   <div className=" flex flex-col h-full gap-4">
                     <div className=" text-xl">Jingjun Gu</div>
                     <div className=" text-xs text-gray-400">
-                      gu.733@buckeyemail.osu.edu
+                      gu.848@buckeyemail.osu.edu
                     </div>
                   </div>
                 </div>
