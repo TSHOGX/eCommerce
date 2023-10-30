@@ -1,4 +1,4 @@
-### **Checkout live demo [here](https://e-commerce-tawny-eight.vercel.app/)**
+### **Checkout live demo [here](https://e-commerce-tawny-eight.vercel.app/)!**
 
 # NIKIA
 
