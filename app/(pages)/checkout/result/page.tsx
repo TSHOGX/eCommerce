@@ -63,11 +63,15 @@ export default async function Result({
   }
 
   // create transaction
+  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+  const items = await stripe.checkout.sessions.retrieve(session_id);
+  // console.log(items);
   const transaction: Transaction = {
     id: session_id,
     timestamp: timestamp.toISOString(),
     accountEmail: session.user.email,
     transProducts: transProducts,
+    shippingAddress: items.shipping_details.address,
   };
   // console.log(transaction);
 

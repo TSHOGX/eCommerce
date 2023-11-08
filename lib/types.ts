@@ -3,6 +3,16 @@ export type Transaction = {
   timestamp: string;
   accountEmail: string;
   transProducts: TransProduct[];
+  shippingAddress: ShippingAddress;
+};
+
+export type ShippingAddress = {
+  city: string;
+  country: string;
+  line1: string;
+  line2: string;
+  postal_code: string;
+  state: string;
 };
 
 export type TransProduct = {

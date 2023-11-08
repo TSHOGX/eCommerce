@@ -49,6 +49,9 @@ export async function createCheckoutSession(cartList: CartList): Promise<void> {
       shipping_address_collection: {
         allowed_countries: ["US"],
       },
+      phone_number_collection: {
+        enabled: true,
+      },
       custom_text: {
         submit: {
           message: "No charge in test mode!",
